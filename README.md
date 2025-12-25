@@ -1,13 +1,6 @@
-graph TD
-    User((Пайдаланушы)) -- HTTPS --> FE[Frontend: Next.js]
-    FE -- REST API --> BE[Backend: Go/Python]
-    BE -- Query --> DB[(Database: PostgreSQL/Redis)]
-    
-    subgraph Infrastructure
-        BE
-        DB
-    end
-    
-    subgraph Orchestration
-        K8s[Kubernetes Cluster]
-    end
+flowchart LR
+    Code[Commit Code] --> Test[Unit Test & Linter]
+    Test --> Security[Security Scan: Snyk/Trivy]
+    Security --> Build[Docker Build]
+    Build --> Push[Push to Registry]
+    Push --> Deploy[Deploy to Staging/Prod]
