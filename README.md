@@ -1,13 +1,21 @@
-C4Context
-    title "System Architecture: Next.js + Go"
-    Person(user, "User", "Web Browser арқылы кіреді")
-    
-    System_Boundary(c1, "Cloud Infrastructure") {
-        Container(web, "Frontend App", "Next.js", "Пайдаланушы интерфейсі")
-        Container(api, "Backend API", "Go", "Бизнес логика мен API")
-        ContainerDb(db, "Database", "PostgreSQL", "Мәліметтерді сақтау")
-    }
+# 📊 Project Diagrams
 
-    Rel(user, web, "Кіру", "HTTPS")
-    Rel(web, api, "Сұраныс жіберу", "JSON/REST")
-    Rel(api, db, "Оқу/Жазу", "SQL")
+Бұл бөлімде жобаның құрылымы мен жұмыс процесі көрсетілген.
+
+---
+
+### 🏗️ 1. Жүйе Архитектурасы (System Architecture)
+Бұл диаграмма пайдаланушы мен сервердің өзара әрекеттесуін көрсетеді:
+
+```mermaid
+graph TD
+    User((Пайдаланушы)) -- Browse --> FE[Frontend: Next.js]
+    FE -- API Request --> BE[Backend: Go/Python]
+    BE -- SQL --> DB[(Database: PostgreSQL)]
+    BE -- Cache --> RD((Redis))
+    
+    subgraph Cloud_Infrastructure
+        BE
+        DB
+        RD
+    end
